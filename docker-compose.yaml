@@ -1,0 +1,47 @@
+---
+
+
+version: '3.8'
+name: openresty-playground
+
+networks:
+  openresty-playground:
+
+
+services:
+
+  openresty:
+    image: brpedromaia/openresty:v1
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    environment:
+      - PLAYGROUND_PUBLIC_DOMAIN=${PLAYGROUND_PUBLIC_DOMAIN}
+    networks:
+      openresty-playground:
+        aliases:
+          - openresty
+    volumes:
+      - ./.container/ssl/:/usr/local/openresty/nginx/ssl
+    healthcheck:
+      test: ["CMD", "curl", "https://localhost/"]
+      interval: 5s
+      timeout: 20s
+      retries: 20
+
+  http_echo:
+    image: hashicorp/http-echo:alpine
+    command: "-text 'Accessing Internal WebApp'"
+    ports:
+      - 5678:5678
+    restart: always
+    networks:
+      openresty-playground:
+        aliases:
+          - http_echo
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:5678"]
+      interval: 5s
+      timeout: 20s
+      retries: 20
