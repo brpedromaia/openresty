@@ -11,7 +11,7 @@ networks:
 services:
 
   openresty:
-    image: brpedromaia/openresty:v1
+    image: brpedromaia/openresty:v3
     ports:
       - 80:80
       - 443:443
