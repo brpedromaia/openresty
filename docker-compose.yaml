@@ -11,13 +11,14 @@ networks:
 services:
 
   openresty:
-    image: brpedromaia/openresty:v3
+    image: brpedromaia/openresty:v4
     ports:
       - 80:80
       - 443:443
     restart: always
     environment:
       - PLAYGROUND_PUBLIC_DOMAIN=${PLAYGROUND_PUBLIC_DOMAIN}
+      - PLAYGROUND_PUBLIC_DOMAIN_LOCAL_SSL_GENERATION=${PLAYGROUND_PUBLIC_DOMAIN_LOCAL_SSL_GENERATION}
     networks:
       openresty-playground:
         aliases:
