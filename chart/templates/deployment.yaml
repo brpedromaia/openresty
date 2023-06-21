@@ -58,17 +58,6 @@ spec:
                   value: "{{ .Values.app.host }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      
-          volumeMounts:
-            - name: config
-              mountPath: /usr/local/openresty/nginx/services
-              readOnly: true
-              # subPath: namespace-services.conf
-      volumes:
-        - name: config
-          configMap:
-            defaultMode: 0777
-            name:  {{ include "chart.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
