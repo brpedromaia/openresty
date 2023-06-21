@@ -8,7 +8,7 @@ if [ "$PLAYGROUND_PUBLIC_DOMAIN_LOCAL_SSL_GENERATION" == "yes" ];then
 
   if [ "$?" != "0" ];then
 
-    echo "Renewing Certificates"
+    echo "Creating rec.la (localhost) Certificates"
     rm -f *.crt
     curl -s https://www.rec.la/rec.la-bundle.crt -o fullchain.crt 
     curl -s https://www.rec.la/rec.la-key.pem -o private.key
